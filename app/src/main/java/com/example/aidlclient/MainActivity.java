@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void onServiceDisconnected(ComponentName name) {
             aidlTest = null;
+            serviceConnection = null;
         }
     };
 
@@ -46,8 +47,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.btn_add:
                 try{
-                   int a =  aidlTest.addTest(3,5);
-                    Toast.makeText(this,"结果是："+a,Toast.LENGTH_LONG).show();
+                    if (aidlTest != null) {
+                        int a = aidlTest.addTest(3, 5);
+                        Toast.makeText(this, "结果是：" + a, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, "未绑定服务", Toast.LENGTH_LONG).show();
+                    }
+
                 }catch (Exception e){
                     e.printStackTrace();
                 }
